@@ -79,7 +79,7 @@ SDR 은 입력 데이터에 대해 극소수(=~2%)의 column 만 활성화 시�
 
 
 ---
-Some other resources to help understand HTM. [summary article] (https://medium.com/@rockingrichie1994/understanding-hierarchal-temporal-memory-f6a1be38e07e)  or from Numeta themselves [here] (https://numenta.org/htm-school/)
+Some other resources to help understand HTM. [summary article] (https://medium.com/@rockingrichie1994/understanding-hierarchal-temporal-memory-f6a1be38e07e), or [here] (https://www.analyticsvidhya.com/blog/2018/05/alternative-deep-learning-hierarchical-temporal-memory-htm-unsupervised-learning/),  or from Numeta themselves [here] (https://numenta.org/htm-school/)
 
 
 The spatial pooler takes the data and generates a special static representation of it.
