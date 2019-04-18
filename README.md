@@ -1,5 +1,5 @@
 # HTM
-Originally made by M.S.KIM, forked by Cailen R
+Originally made by M.S.KIM, forked by Cailen R <br> 
 original theory from [numenta](https://numenta.com/neuroscience-research/research-publications/papers/)
 Hierachical Temporal Memory System
 
