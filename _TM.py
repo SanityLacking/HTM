@@ -312,5 +312,7 @@ class TemporalMemory:
     def evaluate(self):
         self.predicted & self.prev_activeColumns
         
-        
+    def test(self, cols1, cols2):
+        # 예측(이전), sdr(현재)        
+        print("예측 Accuracy :", len(np.intersect1d(cols1, cols2)) / len(cols2))       
 

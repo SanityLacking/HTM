@@ -7,10 +7,7 @@ DEFAULT_RADIUS = 0
 DEFAULT_RESOLUTION = 0
 
 class ScalarEncoder:
-    def __init__(self, min_val=0, max_val=20, log_max=1000, delta_min=-10, delta_max=10, out_size=16, w=3, name=None,radius=DEFAULT_RADIUS,
-               resolution=DEFAULT_RESOLUTION,verbosity=0,
-               clipInput=False,
-               forced=False):
+    def __init__(self, min_val=0, max_val=20, log_max=1000, delta_min=-10, delta_max=10, out_size=16, w=3 name=""):
         
         self.min_val = min_val                  # 표현할 최소값
         self.max_val = max_val                  # 표현할 최대값
@@ -26,32 +23,15 @@ class ScalarEncoder:
         self.periodic = False
         self.resolution = 5  #this needs to change
         self.padding = self.halfwidth
-        self.name =name
-        self.clipInput = clipInput
-        self.verbosity = verbosity
+        self.name =""
+        self.nInternal
+        self.rangeInternal
+
         #initialize the variables
+        self._initEncoder(w, min_val, max_val, self.n, radius, self.resolution)
 
-        if self.periodic:
-            self.padding = 0
-        else:
-            self.padding = self.halfwidth
-
-        if (min_val is not None and max_val is not None):
-            if (min_val >= max_val):
-                raise Exception("The encoder for %s is invalid. min_val %s is greater than "
-                      "or equal to max_val %s. min_val must be strictly less "
-                      "than max_val." % (name, min_val, max_val))
-        if (w % 2 == 0):
-            raise Exception("Width must be an odd number (%f)" % w)
         # nInternal represents the output area excluding the possible padding on each
         #  side
-        self.rangeInternal = float(self.max_val - self.min_val)
-
-       
-       
-       
-        self._initEncoder(w, min_val, max_val, self.n, radius, resolution)
-      
         if (min_val is not None and max_val is not None):
             self.nInternal = self.n - 2 * self.padding
 
@@ -109,14 +89,15 @@ class ScalarEncoder:
     def _getFirstOnBit(self, value):
         """ Return the bit offset of the first bit to be set in the encoder output.
         For periodic encoders, this can be a negative number when the encoded output
-        wraps around. """        
+        wraps around. """
+        print(value)
         if value == None:
             return [None]
         
         else:
             if value < self.min_val:
             # Don't clip periodic values. Out-of-range value is always an error
-                if self.clipInput and not self.periodic:
+                if self.clipvalue and not self.periodic:
                     if self.verbosity > 0:
                         print("Clipped value %s=%.2f to min_val %.2f" % (self.name, value,self.min_val))
                     value = self.min_val
@@ -129,7 +110,7 @@ class ScalarEncoder:
                 raise Exception('value (%s) greater than periodic range (%s - %s)' %(str(value), str(self.min_val), str(self.max_val)))
         else:
             if value > self.max_val:
-                if self.clipInput:
+                if self.clipvalue:
                     if self.verbosity > 0:
                         print("Clipped value %s=%.2f to max_val %.2f" % (self.name, value,self.max_val))
                     value = self.max_val
@@ -178,6 +159,8 @@ class ScalarEncoder:
                     topbins = -minbin
                     output[self.n - int(topbins):self.n] = 1
                     minbin = 0
+            print("minbin: {}".format(minbin))
+            print("maxbin: {}".format(maxbin))
             assert minbin >= 0
             assert maxbin < self.n
             output[int(minbin):int(maxbin) + 1] = 1
@@ -309,6 +292,32 @@ class CycleEncoder:
         #start_bit = 
         
         return self.encoded_data
+
+
+
+class CategoryEncoder:
+    '''
+    간단한 카테고리 encoder
+    겹치지않게 만든다.
+    '''
+    def __init__(self, category, active_bits=3):
+        self.category = category
+        self.category_count = len(category)
+        self.active_bits = active_bits
+        self.total_bit = self.category_count * self.active_bits
+        self.encoded_data = np.zeros(self.total_bit)
+    
+    def encode(self, item):
+        if(item not in self.category):
+            print('N/A')
+            return None
+        
+        start_bit = self.category.index(item) + (self.active_bits - 1)*self.category.index(item)
+        self.encoded_data[start_bit : start_bit+self.active_bits] = 1
+        
+        return self.encoded_data
+
+
 
 def WeekEncoder(day):
     '''

@@ -13,6 +13,8 @@ Hierachical Temporal Memory System
 일반화, 추상화, 추론 등 고등지능은 이 신피질의 계층구조에서 학습되는 듯하다.
 HTM 은 이 신피질의 micro column 을 모방한 생체 신경망이다.
 
+> HTM is a neural network that benchmarks the structure of the neocortex. A columnar neuron aggregate, micro column structure, is found throughout the neocortex. This structure has the same structure everywhere, and it actually does the same thing regardless of where it is located. Unlike other animals that process most of the information they receive from sensory organs in the limbic system, the human cortex has taken up this task in many ways. Higher intelligence, such as generalization, abstraction, and reasoning, seems to be learned in this hierarchy of neocortex. HTM is a vital neural network that mimics the microcolumns of the cortex.
+
 
 ## 2. 특징
 
@@ -22,6 +24,12 @@ HTM 은 이 신피질의 micro column 을 모방한 생체 신경망이다.
 4. 구조가 복잡한 대신 학습은 단순한 hebbian learning 으로 학습.
 5. noise tolerance 가 뛰어남.
 
+
+1. Applicable to non-paper learning.
+2. Mainly learns and processes time series data.
+3. Unlike deep learning, it specializes in learning live streaming data.
+4. Structures are complex, but learning is done with simple hebbian learning.
+5. Excellent noise tolerance.
 
 ## 3. 구조
 
@@ -37,6 +45,15 @@ HTM 은 이 신피질의 micro column 을 모방한 생체 신경망이다.
 - distal segment 는 각 cell 마다 여러개 갖고 있고 각 segment 마다 여러개의 synapse 를 갖고 있다. 
 - "column - cell - segment - synapse"
 
+In fact, it has a six-layer structure, but it can learn sequence data even if only one layer is implemented.
+- It consists of many micro columns in one layer.
+- It actually spreads in two dimensions, but it can also be implemented in one dimension.
+- In a column, several cells are arranged in columns in one column.
+- One cell has two kinds of dendrite. One is the proximal segment associated with the input data The other is the distal segment that connects with other cells in the same layer
+- Since the proximal segment is shared with all the cells in the column, this dendrite is considered as a property of the column. - These dendrites have synapses directly linked to the input data.
+- The distal segment has several cells per cell, and each segment has multiple synapses.
+- "column - cell - segment - synapse"
+
 크게 2 가지 모듈
 1. Spatial Pooler (공간 풀러)
 2. Temporal Memory (시간 풀러)
@@ -45,9 +62,22 @@ HTM 은 이 신피질의 micro column 을 모방한 생체 신경망이다.
 정적 표상을 만드는 역할을 한다.
 proximal segment 과 관련이 있다.
 
+1. Spatial Pooler 
+2. Temporal Memory
+The mechanism of the spatial puller is that when data is injected into the input layer -> neural network (two-dimensional or one-dimensional column vector) 
+It serves to create static representations. It is related to the proximal segment.
+
 공간 풀러에서는 데이터를 받아서 그것을 특수한 정적 표상을 만들어낸다.
 이를 희소분포표상 (SDR) 이라 함.
 SDR 은 입력 데이터에 대해 극소수(=~2%)의 column 만 활성화 시킨것을 의미함.
 모든 column 에 대해 소수의 column 을 선택하는 방법은 천문학적으로 많아질 수 있으므로,
 수많은 정적 패턴을 인지할 수 있다.
 이외의 SDR 의 여러 특징들은 [여기](https://nbviewer.jupyter.org/github/Chocoberry12/HTM/blob/master/SP3.ipynb)서 볼 수 있다.
+
+
+The spatial pooler takes the data and generates a special static representation of it.
+This is called rare distribution representation (SDR).
+SDR means that only very few columns (= ~ 2%) are activated for the input data.
+The choice of a few columns for every column can be astronomical, Numerous static patterns can be recognized.
+Other features of SDR can be found [here] (https://nbviewer.jupyter.org/github/Chocoberry12/HTM/blob/master/SP3.ipynb).
+
