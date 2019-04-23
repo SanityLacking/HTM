@@ -1,8 +1,11 @@
 # HTM
-made by M.S.KIM
+Originally made by M.S.KIM, forked by Cailen R. <br> 
 original theory from [numenta](https://numenta.com/neuroscience-research/research-publications/papers/)
 Hierachical Temporal Memory System
 
+---
+# What's different: 
+This fork is dedicated to building a working implementation of HTM to be used in real time anomaly streams that can run in python 3.6. Currently Numeta has no plan to port forward their benchmark and library to python 3 so alternative solutions were needed. Ideally once complete it will be able to be used as a drop in replacement of the numeta HTM model for other projects.
 
 ---
 ## 1. HTM?
@@ -73,6 +76,10 @@ SDR 은 입력 데이터에 대해 극소수(=~2%)의 column 만 활성화 시�
 모든 column 에 대해 소수의 column 을 선택하는 방법은 천문학적으로 많아질 수 있으므로,
 수많은 정적 패턴을 인지할 수 있다.
 이외의 SDR 의 여러 특징들은 [여기](https://nbviewer.jupyter.org/github/Chocoberry12/HTM/blob/master/SP3.ipynb)서 볼 수 있다.
+
+
+---
+Some other resources to help understand HTM. [summary article] (https://medium.com/@rockingrichie1994/understanding-hierarchal-temporal-memory-f6a1be38e07e), or [here] (https://www.analyticsvidhya.com/blog/2018/05/alternative-deep-learning-hierarchical-temporal-memory-htm-unsupervised-learning/),  or from Numeta themselves [here] (https://numenta.org/htm-school/)
 
 
 The spatial pooler takes the data and generates a special static representation of it.
